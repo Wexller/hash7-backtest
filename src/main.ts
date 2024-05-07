@@ -1,4 +1,4 @@
-import './style.css';
+import 'src/assets/style.css';
 import 'primeicons/primeicons.css';
 
 import PrimeVue from 'primevue/config';
@@ -12,3 +12,4 @@ app.use(PrimeVue, {
   pt: Lara,
   unstyled: true,
 });
+app.mount('#app');

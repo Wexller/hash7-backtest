@@ -27,4 +27,30 @@
     --surface-800: 30 41 59;
     --surface-900: 15 23 42;
     --surface-950: 3 6 23;
+
+    --white: 255 255 255;
+}
+
+:root {
+    --body-bg: var(--surface-50);
+    --body-text-color: var(--surface-900);
+    --selection-bg: var(--primary-50);
+    --selection-text-color: var(--primary-700);
+}
+
+:root[class=dark] {
+    --body-bg: var(--surface-900);
+    --body-text-color: var(--surface-50);
+    --selection-bg: var(--primary-400)/.2;
+    --selection-text-color: var(--primary-200);
+}
+
+@layer base {
+    body {
+        @apply bg-body-bg text-body-text-color;
+    }
+
+    ::selection {
+        @apply bg-selection-bg text-selection-text-color;
+    }
 }

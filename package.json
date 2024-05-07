@@ -11,6 +11,7 @@
     "lint:fix": "eslint --ext .ts,.vue src --fix"
   },
   "dependencies": {
+    "@vueuse/core": "^10.9.0",
     "axios": "^1.6.8",
     "primeicons": "^7.0.0",
     "primevue": "^3.52.0",
