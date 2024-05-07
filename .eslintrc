@@ -1,0 +1,83 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:vue/vue3-essential",
+    "plugin:vue/vue3-recommended",
+    "plugin:prettier/recommended",
+    "plugin:tailwindcss/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "parser": "@typescript-eslint/parser",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "vue",
+    "@typescript-eslint",
+    "@typescript-eslint",
+    "tailwindcss",
+    "simple-import-sort",
+    "sort-keys"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.vue"
+      ],
+      "parser": "vue-eslint-parser"
+    }
+  ],
+  "globals": {
+    "__IS_DEV__": "readonly"
+  },
+  "ignorePatterns": [
+    "src/presets/lara"
+  ],
+  "rules": {
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "eol-last": [
+      "error",
+      "always"
+    ],
+
+    "sort-keys": 0,
+    "sort-keys/sort-keys-fix": 1,
+    "vue/multi-word-component-names": "off",
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "tailwindcss/classnames-order": "warn",
+    "tailwindcss/no-custom-classname": "off",
+    "tailwindcss/no-contradicting-classname": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto",
+        "singleQuote": true
+      }
+    ],
+    "simple-import-sort/imports": "warn",
+    "simple-import-sort/exports": "warn",
+    "vue/component-name-in-template-casing": ["error", "PascalCase"],
+    "vue/attributes-order": "warn"
+  }
+}
