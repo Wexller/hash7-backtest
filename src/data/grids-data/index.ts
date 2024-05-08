@@ -6,18 +6,18 @@ import gridNeutralAggressive from 'src/data/grids-data/grid-neutral-aggressive.t
 import gridNeutralPassive from 'src/data/grids-data/grid-neutral-passive.ts';
 import gridStronglyGrowing from 'src/data/grids-data/grid-strongly-growing.ts';
 import gridVectrum from 'src/data/grids-data/grid-vectrum.ts';
-import { IGrid } from 'src/types/grid.types.ts';
+import { IGrid, IGridItem } from 'src/types/grid.types.ts';
 
 const grids: IGrid[] = [
   {
     items: gridDefault,
     key: 'default',
-    name: 'По умолчанию (1-1-1 на 100 шагов)',
+    name: '1-1-1 на 100 позиций',
   },
   {
     items: gridVectrum,
     key: 'vectrum',
-    name: 'Vectrum',
+    name: 'Vectrum на 90 позиций',
   },
   {
     items: gridAuthor,
@@ -50,5 +50,13 @@ const grids: IGrid[] = [
     name: 'Сильно растущий рынок',
   },
 ];
+
+export const gridMap = grids.reduce<Record<string, IGridItem[]>>(
+  (acc, grid) => {
+    acc[grid.key] = grid.items;
+    return acc;
+  },
+  {},
+);
 
 export default grids;

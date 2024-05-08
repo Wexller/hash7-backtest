@@ -9,15 +9,21 @@ import inputtext from 'src/presets/lara/components/inputtext/index.js';
 import inputnumber from 'src/presets/lara/components/inputnumber/index.js';
 import floatlabel from 'src/presets/lara/components/floatlabel/index.js';
 import inputgroup from 'src/presets/lara/components/inputgroup/index.js';
+import calendar from 'src/presets/lara/components/calendar/index.js';
+import dropdown from 'src/presets/lara/components/dropdown/index.js';
+import multiselect from 'src/presets/lara/components/multiselect/index.js';
 
 export default {
   global,
 
   //forms
+  calendar,
+  dropdown,
   inputgroup,
   inputtext,
   inputnumber,
   floatlabel,
+  multiselect,
 
   //buttons
   button,

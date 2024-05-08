@@ -5,7 +5,7 @@ import HGrids from 'src/components/HGrids.vue';
 import HHeader from 'src/components/HHeader.vue';
 import { ref } from 'vue';
 
-const model = ref<string>('grids');
+const model = ref<string>('backtest');
 
 const options = [
   { code: 'backtest', name: 'Бэктест' },
