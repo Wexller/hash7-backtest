@@ -23,8 +23,9 @@ defineProps<Props>();
   <Card>
     <template #title>
       <h2 class="text-center text-xl font-medium">
-        Результаты расчетов на основе {{ formatNumber(totalRecords) }} записей
-        {{ ticker }} за период с {{ format(dateFrom, 'dd.MM.yyyy') }} по
+        Результаты расчетов {{ ticker }} на основе
+        {{ formatNumber(totalRecords) }} записей за период с
+        {{ format(dateFrom, 'dd.MM.yyyy') }} по
         {{ format(dateTo, 'dd.MM.yyyy') }}
       </h2>
     </template>
@@ -48,6 +49,13 @@ defineProps<Props>();
           header="Конечный баланс"
           header-class="min-w-[120px] text-center"
           body-class="font-semibold"
+          :sortable="true"
+        />
+
+        <Column
+          field="apy"
+          header="APY %"
+          header-class="min-w-[120px] text-center"
           :sortable="true"
         />
 

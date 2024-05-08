@@ -2,6 +2,7 @@
 import { BOT_FEE, MARKET_FEE } from 'src/consts.ts';
 import MockOrder from 'src/core/MockOrder.ts';
 import Strategy from 'src/core/Strategy.ts';
+import { formatNumber } from 'src/helpers.ts';
 import { IBacktestResult } from 'src/types/backtest.types.ts';
 import { IKline } from 'src/types/request.types.ts';
 
@@ -139,7 +140,6 @@ export default class BacktestBot {
     );
     order.fill(buyAmount);
     position.setOrder(order);
-    // this.logAction(buyAmount, 'buy');
 
     const buyCost = buyAmount * this.currentPrice;
     const buyFee = buyCost * MARKET_FEE; // 0.1% fee
@@ -217,18 +217,34 @@ export default class BacktestBot {
     return this.currentPrice <= dropPrice;
   }
 
+  private calcAPY() {
+    const startDate = this.historicalData[0].closeTime;
+    const endDate =
+      this.historicalData[this.historicalData.length - 1].closeTime;
+
+    const totalDays = (endDate - startDate) / (1000 * 60 * 60 * 24);
+    const totalProfit = this.profit;
+    const totalBalance = this.balance;
+
+    const apy = (totalProfit / totalBalance) * (365 / totalDays) * 100;
+    return apy.toFixed(2);
+  }
+
   private getReport(startBalance: number): IBacktestResult {
     return {
-      buys: this.buyCount,
+      apy: this.calcAPY(),
+      buys: formatNumber(this.buyCount),
       currentPositions: this.strategy.positionIdx,
-      finalBalance: Number(this.balance.toFixed(2)),
+      finalBalance: formatNumber(Number(this.balance.toFixed(2))),
       maxPosition: this.maxStep,
-      profitWithFees: Number(this.profit.toFixed(2)),
-      realizedPnL: Number(this.realizedPnL.toFixed(2)),
-      sells: this.sellCount,
-      startBalance: Number(startBalance.toFixed(2)),
-      totalPositions: Number(this.calculateTotalBuyCost().toFixed(2)),
-      unrealizedPnL: Number(this.unrealizedPnL.toFixed(2)),
+      profitWithFees: formatNumber(Number(this.profit.toFixed(2))),
+      realizedPnL: formatNumber(Number(this.realizedPnL.toFixed(2))),
+      sells: formatNumber(this.sellCount),
+      startBalance: formatNumber(Number(startBalance.toFixed(2))),
+      totalPositions: formatNumber(
+        Number(this.calculateTotalBuyCost().toFixed(2)),
+      ),
+      unrealizedPnL: formatNumber(Number(this.unrealizedPnL.toFixed(2))),
     };
   }
 }

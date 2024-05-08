@@ -8,16 +8,17 @@ export interface IBacktestForm {
 }
 
 export interface IBacktestResult {
-  buys: number;
+  buys: string;
   currentPositions: number;
-  finalBalance: number;
+  finalBalance: string;
   maxPosition: number;
-  profitWithFees: number;
-  realizedPnL: number;
-  sells: number;
-  startBalance: number;
-  totalPositions: number;
-  unrealizedPnL: number;
+  profitWithFees: string;
+  realizedPnL: string;
+  sells: string;
+  startBalance: string;
+  totalPositions: string;
+  unrealizedPnL: string;
+  apy: string;
 }
 
 export interface IBacktestResultWithGrid extends IBacktestResult {
