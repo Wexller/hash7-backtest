@@ -13,8 +13,6 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
-    env:
-      VITE_BASE_PREFIX="/hash7-backtest/"
 
     strategy:
       matrix:
