@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import InputNumber from 'primevue/inputnumber';
 import InputText from 'primevue/inputtext';
 import HGridFormFieldset from 'src/components/gird/HGridFormFieldset.vue';
 import HInputWrapper from 'src/components/ui/form/input-wrapper/HInputWrapper.vue';

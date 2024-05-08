@@ -15,6 +15,7 @@ import multiselect from 'src/presets/lara/components/multiselect/index.js';
 import inlinemessage from 'src/presets/lara/components/inlinemessage/index.js';
 import progressbar from 'src/presets/lara/components/progressbar/index.js';
 import datatable from 'src/presets/lara/components/datatable/index.js';
+import toast from 'src/presets/lara/components/toast/index.js';
 
 export default {
   global,
@@ -45,6 +46,7 @@ export default {
 
   //messages
   inlinemessage,
+  toast,
 
   //misc
   progressbar

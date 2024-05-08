@@ -1,11 +1,18 @@
 <script setup lang="ts">
+import { format } from 'date-fns';
 import Card from 'primevue/card';
 import Column from 'primevue/column';
 import DataTable from 'primevue/datatable';
 import { IBacktestResultWithGrid } from 'src/types/backtest.types.ts';
+import { IntervalType, SymbolType } from 'src/types/request.types.ts';
 
 interface Props {
   data: IBacktestResultWithGrid[];
+  ticker: SymbolType;
+  interval: IntervalType;
+  dateFrom: Date;
+  dateTo: Date;
+  totalRecords: number;
 }
 
 defineProps<Props>();
@@ -14,7 +21,11 @@ defineProps<Props>();
 <template>
   <Card>
     <template #title>
-      <h2 class="text-center text-2xl font-medium">Результаты</h2>
+      <h2 class="text-center text-2xl font-medium">
+        Результаты расчетов на основе {{ totalRecords }} записей {{ ticker }} за
+        период с {{ format(dateFrom, 'dd.MM.yyyy') }} по
+        {{ format(dateTo, 'dd.MM.yyyy') }}
+      </h2>
     </template>
 
     <template #content>
@@ -22,7 +33,7 @@ defineProps<Props>();
         <Column
           field="gridName"
           header="Сетка"
-          header-class="min-w-[100px] text-center"
+          header-class="min-w-[200px] text-center"
         />
 
         <Column
@@ -35,24 +46,28 @@ defineProps<Props>();
           field="finalBalance"
           header="Конечный баланс"
           header-class="min-w-[120px] text-center"
-        />
-
-        <Column
-          field="profitWithFees"
-          header="Прибыль с учетом комиссии"
-          header-class="min-w-[150px] text-center"
+          body-class="font-semibold"
         />
 
         <Column
           field="realizedPnL"
-          header="Реализованная прибыль"
+          header="Реализованный P&L"
           header-class="min-w-[150px] text-center"
+          body-class="text-green-500 font-semibold"
         />
 
         <Column
           field="unrealizedPnL"
-          header="Нереализованная прибыль"
+          header="Нереализованный P&L"
           header-class="min-w-[150px] text-center"
+          body-class="text-red-500 font-semibold"
+        />
+
+        <Column
+          field="profitWithFees"
+          header="Прибыль с учетом комиссий (~40%)"
+          header-class="min-w-[180px] text-center"
+          body-class="text-orange-500 font-semibold"
         />
 
         <Column

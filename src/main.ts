@@ -2,12 +2,14 @@ import 'src/assets/style.css';
 import 'primeicons/primeicons.css';
 
 import PrimeVue from 'primevue/config';
+import toastService from 'primevue/toastservice';
 import Lara from 'src/presets/lara';
 import { createApp } from 'vue';
 
 import App from './App.vue';
 
 const app = createApp(App);
+app.use(toastService);
 app.use(PrimeVue, {
   locale: {
     clear: 'Очистить',

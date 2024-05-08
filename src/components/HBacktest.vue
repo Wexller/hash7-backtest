@@ -12,13 +12,19 @@ import {
   IBacktestForm,
   IBacktestResultWithGrid,
 } from 'src/types/backtest.types.ts';
-import { IKline } from 'src/types/request.types.ts';
+import { IKline, IntervalType, SymbolType } from 'src/types/request.types.ts';
 import { computed, ref } from 'vue';
 
 const results = ref<IBacktestResultWithGrid[]>([]);
 const totalIterations = ref(0);
 const iterationCount = ref(0);
 const isFetching = ref(false);
+
+const ticker = ref<SymbolType>('BTCUSDT');
+const interval = ref<IntervalType>('1d');
+const dateFrom = ref(new Date());
+const dateTo = ref(new Date());
+const totalRecords = ref(0);
 
 const recordCountPercentage = computed(() => {
   if (totalIterations.value === 0) {
@@ -27,8 +33,6 @@ const recordCountPercentage = computed(() => {
 
   return Math.round((iterationCount.value / totalIterations.value) * 100);
 });
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function getHistoricData(formData: IBacktestForm) {
   const { date, interval, symbol } = formData;
@@ -72,7 +76,16 @@ async function getHistoricData(formData: IBacktestForm) {
 }
 const onSubmit = async (value: IBacktestForm) => {
   const historicalData = await getHistoricData(value);
+
+  if (historicalData.length === 0) return;
+
   results.value = [];
+
+  ticker.value = value.symbol;
+  interval.value = value.interval;
+  dateFrom.value = value.date[0];
+  dateTo.value = value.date[1];
+  totalRecords.value = historicalData.length;
 
   for (const gridKey of value.grids) {
     const grid = gridMap[gridKey];
@@ -88,7 +101,7 @@ const onSubmit = async (value: IBacktestForm) => {
 </script>
 
 <template>
-  <div class="mx-auto max-w-4xl space-y-10">
+  <div class="mx-auto space-y-10">
     <Card>
       <template #title>
         <h2 class="text-center text-2xl font-medium">Бэктест</h2>
@@ -98,7 +111,7 @@ const onSubmit = async (value: IBacktestForm) => {
         <div class="space-y-5">
           <HBacktestForm :is-loading="isFetching" @submit="onSubmit" />
 
-          <div v-if="recordCountPercentage > 0 && isFetching" class="space-y-2">
+          <div v-if="isFetching" class="space-y-2">
             <p class="text-center text-lg font-medium">
               Загрузка данных: {{ iterationCount }} / {{ totalIterations }}
             </p>
@@ -109,6 +122,14 @@ const onSubmit = async (value: IBacktestForm) => {
       </template>
     </Card>
 
-    <HBacktestResult v-if="results.length > 0" :data="results" />
+    <HBacktestResult
+      v-if="results.length > 0"
+      :data="results"
+      :ticker="ticker"
+      :interval="interval"
+      :date-from="dateFrom"
+      :date-to="dateTo"
+      :total-records="totalRecords"
+    />
   </div>
 </template>

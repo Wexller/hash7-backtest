@@ -55,11 +55,6 @@ const scheme = toTypedSchema(
 
 const { defineField, handleSubmit, meta, values, resetForm } =
   useForm<IBacktestForm>({
-    initialValues: {
-      grids: ['default'],
-      interval: '1d',
-      symbol: 'BTCUSDT',
-    },
     validationSchema: scheme,
   });
 

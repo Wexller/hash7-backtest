@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SelectButton from 'primevue/selectbutton';
+import Toast from 'primevue/toast';
 import HBacktest from 'src/components/HBacktest.vue';
 import HGrids from 'src/components/HGrids.vue';
 import HHeader from 'src/components/HHeader.vue';
@@ -14,10 +15,10 @@ const options = [
 </script>
 
 <template>
-  <div class="container py-4">
+  <div class="mx-auto max-w-4xl pb-10 pt-4">
     <HHeader />
 
-    <div class="pt-6">
+    <div class="pt-10">
       <SelectButton
         v-model="model"
         :options="options"
@@ -27,10 +28,12 @@ const options = [
       />
 
       <div class="pt-6">
-        <HGrids v-if="model === 'grids'" />
-
         <HBacktest v-show="model !== 'grids'" />
+
+        <HGrids v-if="model === 'grids'" />
       </div>
     </div>
+
+    <Toast />
   </div>
 </template>

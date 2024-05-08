@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+import ToastEventBus from 'primevue/toasteventbus';
 import { LIMIT } from 'src/consts.ts';
 import {
   IKline,
@@ -12,6 +13,15 @@ interface IFetchHistoricalDataParams {
   interval: IntervalType;
   startTime: number;
   endTime: number;
+}
+
+function addErrorToast(detail: unknown) {
+  ToastEventBus.emit('add', {
+    detail,
+    life: 5000,
+    severity: 'error',
+    summary: 'Ошибка запроса',
+  });
 }
 
 export async function fetchHistoricalData({
@@ -28,16 +38,19 @@ export async function fetchHistoricalData({
       startTime,
       symbol,
     };
+
     const response = await axios.get<KlineData[]>('/klines', {
       baseURL: 'https://api.binance.com/api/v3',
       params,
     });
 
-    if (response.status === 429 || response.status === 418) {
-      console.log(
-        'Request limit reached or IP banned. Last request params:',
-        params,
-      );
+    if (response.status === 429) {
+      addErrorToast('Превышен лимит запросов. Попробуйте позже');
+      return;
+    }
+
+    if (response.status === 418) {
+      addErrorToast('IP заблокирован за частые запросы. Попробуйте позже');
       return;
     }
 
@@ -55,7 +68,17 @@ export async function fetchHistoricalData({
       takerBuyQuoteAssetVolume: parseFloat(item[10]),
       volume: parseFloat(item[5]),
     }));
-  } catch (error) {
-    console.error(error);
+  } catch (e) {
+    const error = e as AxiosError;
+
+    if (error.response?.status === 429) {
+      addErrorToast('Превышен лимит запросов. Попробуйте позже');
+      return;
+    }
+
+    if (error.response?.status === 418) {
+      addErrorToast('IP заблокирован за частые запросы. Попробуйте позже');
+      return;
+    }
   }
 }

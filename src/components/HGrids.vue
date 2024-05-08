@@ -4,7 +4,7 @@ import HUserGrids from 'src/components/gird/HUserGrids.vue';
 </script>
 
 <template>
-  <div class="mx-auto max-w-4xl space-y-10">
+  <div class="mx-auto space-y-10">
     <HUserGrids v-if="false" />
 
     <HCommonGrids />
