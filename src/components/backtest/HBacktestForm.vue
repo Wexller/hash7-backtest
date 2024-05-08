@@ -140,7 +140,7 @@ const onSubmit = handleSubmit((values) => {
         :disabled="isLoading"
         option-value="code"
         option-label="name"
-        placeholder="Выберите сетку"
+        placeholder="Выберите сетки"
         :max-selected-labels="3"
         selected-items-label="{0} выбрано"
       />
