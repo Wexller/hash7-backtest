@@ -80,5 +80,7 @@ export async function fetchHistoricalData({
       addErrorToast('IP заблокирован за частые запросы. Попробуйте позже');
       return;
     }
+
+    addErrorToast('Ошибка запроса');
   }
 }

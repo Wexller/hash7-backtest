@@ -28,7 +28,6 @@ export const tickers = [
   'SOL',
   'SUSHI',
   'TOKEN',
-  'TON',
   'TRX',
   'UNI',
   'WAVES',
