@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { BOT_FEE, MARKET_FEE } from 'src/consts.ts';
 import MockOrder from 'src/core/MockOrder.ts';
 import Strategy from 'src/core/Strategy.ts';
@@ -97,7 +98,9 @@ export default class BacktestBot {
 
       if (!position || !position.getOrder()) continue;
 
+      // @ts-ignore
       const amount = position.getOrder().filled;
+      // @ts-ignore
       const buyPrice = amount * position.getOrder().price;
       const currentPrice = amount * this.currentPrice;
       const unrealizedPnLForPosition = currentPrice - buyPrice;
@@ -111,7 +114,9 @@ export default class BacktestBot {
     for (let i = 0; i < this.strategy.getPositionIdx(); i++) {
       const position = this.strategy.getPosition(i);
       if (position && position.getOrder()) {
+        // @ts-ignore
         const amount = position.getOrder().filled;
+        // @ts-ignore
         const buyPrice = amount * position.getOrder().price;
         totalBuyCost += buyPrice;
       }
@@ -149,7 +154,7 @@ export default class BacktestBot {
     if (!position || !position.getOrder()) {
       return;
     }
-
+    // @ts-ignore
     const amount = position.getOrder().filled;
 
     if (!amount) {
@@ -158,6 +163,7 @@ export default class BacktestBot {
     }
 
     const sellPrice = amount * this.currentPrice;
+    // @ts-ignore
     const buyPrice = amount * position.getOrder().price;
     const profit = sellPrice - buyPrice;
     const sellFee = sellPrice * MARKET_FEE; // 0.1% fee
@@ -184,10 +190,11 @@ export default class BacktestBot {
       return false;
     }
 
-    return (
-      this.currentPrice >=
-      position.getOrderPrice() * (1 + position.getSellRisePercentage() / 100)
-    );
+    const sellPrice =
+      // @ts-ignore
+      position.getOrderPrice() * (1 + position.getSellRisePercentage() / 100);
+
+    return this.currentPrice >= sellPrice;
   }
 
   shouldBuyNextAsset() {
@@ -203,6 +210,7 @@ export default class BacktestBot {
     }
 
     const dropPrice =
+      // @ts-ignore
       previousPosition.getOrderPrice() *
       (1 - position.getBuyDropPercentage() / 100);
 
