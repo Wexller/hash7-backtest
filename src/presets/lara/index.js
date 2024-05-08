@@ -12,6 +12,9 @@ import inputgroup from 'src/presets/lara/components/inputgroup/index.js';
 import calendar from 'src/presets/lara/components/calendar/index.js';
 import dropdown from 'src/presets/lara/components/dropdown/index.js';
 import multiselect from 'src/presets/lara/components/multiselect/index.js';
+import inlinemessage from 'src/presets/lara/components/inlinemessage/index.js';
+import progressbar from 'src/presets/lara/components/progressbar/index.js';
+import datatable from 'src/presets/lara/components/datatable/index.js';
 
 export default {
   global,
@@ -31,6 +34,7 @@ export default {
 
   //data
   treetable,
+  datatable,
 
   //panels
   accordion,
@@ -38,4 +42,10 @@ export default {
 
   //overlays
   dialog,
+
+  //messages
+  inlinemessage,
+
+  //misc
+  progressbar
 }

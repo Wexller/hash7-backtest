@@ -6,7 +6,7 @@ import gridNeutralAggressive from 'src/data/grids-data/grid-neutral-aggressive.t
 import gridNeutralPassive from 'src/data/grids-data/grid-neutral-passive.ts';
 import gridStronglyGrowing from 'src/data/grids-data/grid-strongly-growing.ts';
 import gridVectrum from 'src/data/grids-data/grid-vectrum.ts';
-import { IGrid, IGridItem } from 'src/types/grid.types.ts';
+import { IGrid } from 'src/types/grid.types.ts';
 
 const grids: IGrid[] = [
   {
@@ -51,12 +51,9 @@ const grids: IGrid[] = [
   },
 ];
 
-export const gridMap = grids.reduce<Record<string, IGridItem[]>>(
-  (acc, grid) => {
-    acc[grid.key] = grid.items;
-    return acc;
-  },
-  {},
-);
+export const gridMap = grids.reduce<Record<string, IGrid>>((acc, grid) => {
+  acc[grid.key] = grid;
+  return acc;
+}, {});
 
 export default grids;

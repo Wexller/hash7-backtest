@@ -10,6 +10,7 @@ import App from './App.vue';
 const app = createApp(App);
 app.use(PrimeVue, {
   locale: {
+    clear: 'Очистить',
     dayNames: [
       'Воскресенье',
       'Понедельник',
@@ -49,6 +50,7 @@ app.use(PrimeVue, {
       'Ноя',
       'Дек',
     ],
+    today: 'Сегодня',
   },
   pt: Lara,
   unstyled: true,

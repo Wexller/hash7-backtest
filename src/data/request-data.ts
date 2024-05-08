@@ -79,3 +79,18 @@ export const intervalTranslations: Record<string, string> = {
   // eslint-disable-next-line sort-keys/sort-keys-fix
   '1M': '1 месяц',
 };
+
+export const klineFields = [
+  'openTime',
+  'open',
+  'high',
+  'low',
+  'close',
+  'volume',
+  'closeTime',
+  'quoteAssetVolume',
+  'numberOfTrades',
+  'takerBuyBaseAssetVolume',
+  'takerBuyQuoteAssetVolume',
+  'ignore',
+] as const;

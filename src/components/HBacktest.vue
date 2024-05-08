@@ -1,68 +1,90 @@
 <script setup lang="ts">
-import { toTypedSchema } from '@vee-validate/zod';
-import Button from 'primevue/button';
-import Calendar from 'primevue/calendar';
 import Card from 'primevue/card';
-import Dropdown from 'primevue/dropdown';
-import MultiSelect from 'primevue/multiselect';
-import grids from 'src/data/grids-data';
+import ProgressBar from 'primevue/progressbar';
+import HBacktestForm from 'src/components/backtest/HBacktestForm.vue';
+import HBacktestResult from 'src/components/backtest/HBacktestResult.vue';
+import { INTERVAL_TO_MILLISECONDS, LIMIT } from 'src/consts.ts';
+import BacktestBot from 'src/core/BacktestBot.ts';
+import { fetchHistoricalData } from 'src/core/fetchHistoricalData.ts';
+import Strategy from 'src/core/Strategy.ts';
+import { gridMap } from 'src/data/grids-data';
 import {
-  intervals,
-  intervalTranslations,
-  tickers,
-} from 'src/data/request-data.ts';
-import { InputBindsConfig, LazyInputBindsConfig, useForm } from 'vee-validate';
-import { z } from 'zod';
+  IBacktestForm,
+  IBacktestResultWithGrid,
+} from 'src/types/backtest.types.ts';
+import { IKline } from 'src/types/request.types.ts';
+import { computed, ref } from 'vue';
 
-const tickerList = tickers.map((ticker) => ({
-  code: ticker,
-  name: `${ticker}/USDT`,
-}));
+const results = ref<IBacktestResultWithGrid[]>([]);
+const totalIterations = ref(0);
+const iterationCount = ref(0);
+const isFetching = ref(false);
 
-const intervalList = intervals.map((interval) => ({
-  code: interval,
-  name: intervalTranslations[interval],
-}));
+const recordCountPercentage = computed(() => {
+  if (totalIterations.value === 0) {
+    return 0;
+  }
 
-const gridList = grids.map((grid) => ({
-  code: grid.key,
-  name: grid.name,
-}));
-
-const scheme = toTypedSchema(
-  z.object({
-    date: z.array(z.date()),
-    grids: z.array(z.string()).min(1),
-    interval: z.string(),
-    ticker: z.string(),
-  }),
-);
-
-const { defineField, handleSubmit, meta } = useForm({
-  validationSchema: scheme,
+  return Math.round((iterationCount.value / totalIterations.value) * 100);
 });
 
-const inputTextConfigBinds:
-  | Partial<InputBindsConfig<string>>
-  | LazyInputBindsConfig = {
-  props: (state) => ({ invalid: state.errors.length > 0 }),
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function getHistoricData(formData: IBacktestForm) {
+  const { date, interval, symbol } = formData;
+
+  let [startTime, endTime] = date.map((d) => d.getTime());
+
+  const step = INTERVAL_TO_MILLISECONDS[interval] * LIMIT;
+  let historicalData: IKline[] = [];
+
+  totalIterations.value = Math.ceil(
+    (endTime - startTime) / (INTERVAL_TO_MILLISECONDS[interval] * LIMIT),
+  );
+  iterationCount.value = 0;
+
+  isFetching.value = true;
+  while (startTime < endTime) {
+    if (iterationCount.value >= totalIterations.value) {
+      break;
+    }
+
+    iterationCount.value++;
+
+    const data = await fetchHistoricalData({
+      endTime,
+      interval,
+      startTime,
+      symbol,
+    });
+
+    if (!data) {
+      break;
+    }
+
+    historicalData = [...historicalData, ...data];
+    startTime = Math.min(startTime + step, endTime);
+  }
+
+  isFetching.value = false;
+
+  return historicalData;
+}
+const onSubmit = async (value: IBacktestForm) => {
+  const historicalData = await getHistoricData(value);
+  results.value = [];
+
+  for (const gridKey of value.grids) {
+    const grid = gridMap[gridKey];
+    if (!grid) continue;
+
+    const strategy = new Strategy(`${value.symbol}USDT`, grid.items);
+    const bot = new BacktestBot(strategy, historicalData, 10, 1000);
+
+    const result = { ...bot.run(), gridName: grid.name };
+    results.value.push(result);
+  }
 };
-
-const [date, dateMeta] = defineField('date', {
-  props(state) {
-    return {
-      invalid: state.errors.length > 0,
-    };
-  },
-});
-
-const [ticker, tickerMeta] = defineField('ticker', inputTextConfigBinds);
-const [interval, intervalMeta] = defineField('interval', inputTextConfigBinds);
-const [grid, gridMeta] = defineField('grids', inputTextConfigBinds);
-
-const onSubmit = handleSubmit((value) => {
-  console.log(value);
-});
 </script>
 
 <template>
@@ -73,63 +95,20 @@ const onSubmit = handleSubmit((value) => {
       </template>
 
       <template #content>
-        <form class="space-y-5" @submit="onSubmit">
-          <div class="grid grid-cols-2 gap-4">
-            <Dropdown
-              v-model="ticker"
-              v-bind="tickerMeta"
-              :options="tickerList"
-              option-label="name"
-              option-value="code"
-              placeholder="Выберите актив"
-              :virtual-scroller-options="{ itemSize: 38 }"
-              filter
-            />
+        <div class="space-y-5">
+          <HBacktestForm :is-loading="isFetching" @submit="onSubmit" />
 
-            <Dropdown
-              v-model="interval"
-              v-bind="intervalMeta"
-              :options="intervalList"
-              option-label="name"
-              option-value="code"
-              placeholder="Выберите шаг"
-            />
+          <div v-if="recordCountPercentage > 0 && isFetching" class="space-y-2">
+            <p class="text-center text-lg font-medium">
+              Загрузка данных: {{ iterationCount }} / {{ totalIterations }}
+            </p>
 
-            <MultiSelect
-              v-model="grid"
-              v-bind="gridMeta"
-              :options="gridList"
-              option-value="code"
-              option-label="name"
-              placeholder="Выберите сетку"
-              :max-selected-labels="3"
-              selected-items-label="{0} выбрано"
-            />
-
-            <Calendar
-              v-model="date"
-              v-bind="dateMeta"
-              date-format="dd.mm.yy"
-              selection-mode="range"
-              :manual-input="false"
-              :max-date="new Date()"
-              hide-on-range-selection
-              placeholder="Выберите диапазон дат"
-            />
+            <ProgressBar :value="recordCountPercentage" />
           </div>
-
-          <div class="text-center">
-            <Button
-              type="submit"
-              label="Рассчитать"
-              icon="pi pi-calculator"
-              class="col-span-1"
-              :disabled="!meta.valid"
-              loading
-            />
-          </div>
-        </form>
+        </div>
       </template>
     </Card>
+
+    <HBacktestResult v-if="results.length > 0" :data="results" />
   </div>
 </template>

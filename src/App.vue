@@ -29,7 +29,7 @@ const options = [
       <div class="pt-6">
         <HGrids v-if="model === 'grids'" />
 
-        <HBacktest v-else />
+        <HBacktest v-show="model !== 'grids'" />
       </div>
     </div>
   </div>
