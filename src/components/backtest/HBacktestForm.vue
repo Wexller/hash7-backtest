@@ -53,14 +53,15 @@ const scheme = toTypedSchema(
   }),
 );
 
-const { defineField, handleSubmit, meta, values } = useForm<IBacktestForm>({
-  initialValues: {
-    grids: ['default'],
-    interval: '1d',
-    symbol: 'BTCUSDT',
-  },
-  validationSchema: scheme,
-});
+const { defineField, handleSubmit, meta, values, resetForm } =
+  useForm<IBacktestForm>({
+    initialValues: {
+      grids: ['default'],
+      interval: '1d',
+      symbol: 'BTCUSDT',
+    },
+    validationSchema: scheme,
+  });
 
 const estimatedRecords = computed(() => {
   if (!values.date || !values.interval) {
@@ -101,8 +102,13 @@ const [ticker, tickerMeta] = defineField('symbol', inputTextConfigBinds);
 const [interval, intervalMeta] = defineField('interval', inputTextConfigBinds);
 const [grid, gridMeta] = defineField('grids', inputTextConfigBinds);
 
-const onSubmit = handleSubmit((value) => {
-  emit('submit', value);
+const onSubmit = handleSubmit((values) => {
+  if (!meta.value.dirty) return;
+
+  emit('submit', values);
+  resetForm({
+    values,
+  });
 });
 </script>
 
@@ -178,7 +184,7 @@ const onSubmit = handleSubmit((value) => {
         label="Рассчитать"
         icon="pi pi-calculator"
         class="col-span-1"
-        :disabled="!meta.valid"
+        :disabled="!meta.valid || !meta.dirty"
         :loading="isLoading"
       />
     </div>

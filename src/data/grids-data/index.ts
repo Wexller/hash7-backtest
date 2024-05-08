@@ -1,3 +1,5 @@
+import gridContinuouslyAggressive from 'src/data/grids-data/continuously-aggressive.ts';
+import gridContinuouslyModerate from 'src/data/grids-data/continuously-moderate.ts';
 import gridAuthor from 'src/data/grids-data/grid-author.ts';
 import gridDefault from 'src/data/grids-data/grid-default.ts';
 import gridFalling from 'src/data/grids-data/grid-falling.ts';
@@ -48,6 +50,16 @@ const grids: IGrid[] = [
     items: gridStronglyGrowing,
     key: 'strongly-growing',
     name: 'Сильно растущий рынок',
+  },
+  {
+    items: gridContinuouslyModerate,
+    key: 'continuously-moderate',
+    name: 'Непрерывная умеренная',
+  },
+  {
+    items: gridContinuouslyAggressive,
+    key: 'continuously-aggressive',
+    name: 'Непрерывная агрессивная',
   },
 ];
 
