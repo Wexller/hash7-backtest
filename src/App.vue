@@ -16,7 +16,7 @@ const options = [
 </script>
 
 <template>
-  <div class="mx-auto max-w-4xl pb-10 pt-4">
+  <div class="mx-auto max-w-4xl pb-10 pt-4 max-md:px-4">
     <HHeader />
 
     <div class="pt-10">
