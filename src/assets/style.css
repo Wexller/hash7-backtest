@@ -39,7 +39,7 @@
 }
 
 :root[class=dark] {
-    --body-bg: var(--surface-900);
+    --body-bg: var(--surface-950);
     --body-text-color: var(--surface-50);
     --selection-bg: var(--primary-400)/.2;
     --selection-text-color: var(--primary-200);

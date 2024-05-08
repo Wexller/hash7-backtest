@@ -1,0 +1,36 @@
+import { IGridItem } from 'src/types/grid.types.ts';
+
+const gridFalling: IGridItem[] = [
+  { buy: 0, multiplier: 1, sell: 1 },
+  { buy: 1, multiplier: 1, sell: 1 },
+  { buy: 1, multiplier: 1, sell: 1 },
+  { buy: 1, multiplier: 1, sell: 1 },
+  { buy: 1, multiplier: 1, sell: 1 },
+  { buy: 1, multiplier: 1, sell: 1 },
+  { buy: 1, multiplier: 1, sell: 1 },
+  { buy: 1, multiplier: 1, sell: 1 },
+  { buy: 1, multiplier: 1, sell: 1 },
+  { buy: 2, multiplier: 1, sell: 1 },
+  { buy: 2, multiplier: 1, sell: 1 },
+  { buy: 2, multiplier: 1, sell: 1 },
+  { buy: 2, multiplier: 1, sell: 1 },
+  { buy: 2, multiplier: 1, sell: 1 },
+  { buy: 2, multiplier: 1, sell: 1 },
+  { buy: 3, multiplier: 1, sell: 1 },
+  { buy: 3, multiplier: 1, sell: 1 },
+  { buy: 3, multiplier: 1, sell: 1 },
+  { buy: 3, multiplier: 1, sell: 1 },
+  { buy: 3, multiplier: 1, sell: 1 },
+  { buy: 3, multiplier: 1, sell: 1 },
+  { buy: 4, multiplier: 1, sell: 1 },
+  { buy: 4, multiplier: 1, sell: 1 },
+  { buy: 4, multiplier: 1, sell: 1 },
+  { buy: 4, multiplier: 1, sell: 1 },
+  { buy: 5, multiplier: 1, sell: 1 },
+  { buy: 6, multiplier: 1, sell: 1 },
+  { buy: 7, multiplier: 1, sell: 1 },
+  { buy: 8, multiplier: 1, sell: 1 },
+  { buy: 9, multiplier: 1, sell: 1 },
+];
+
+export default gridFalling;

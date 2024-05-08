@@ -11,7 +11,7 @@ const toggleDark = useToggle(isDark);
     <h1 class="text-2xl">Hash7 Backtest</h1>
 
     <Button
-      :icon="isDark ? 'pi pi-sun' : 'pi pi-moon'"
+      :icon="isDark ? 'pi pi-moon' : 'pi pi-sun'"
       outlined
       size="small"
       @click="toggleDark()"

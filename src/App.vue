@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import SelectButton from 'primevue/selectbutton';
-import Backtest from 'src/components/Backtest.vue';
-import Grids from 'src/components/Grids.vue';
-import Header from 'src/components/Header.vue';
+import HBacktest from 'src/components/HBacktest.vue';
+import HGrids from 'src/components/HGrids.vue';
+import HHeader from 'src/components/HHeader.vue';
 import { ref } from 'vue';
 
-const model = ref<string>('backtest');
+const model = ref<string>('grids');
 
 const options = [
   { code: 'backtest', name: 'Бэктест' },
@@ -15,9 +15,9 @@ const options = [
 
 <template>
   <div class="container py-4">
-    <Header />
+    <HHeader />
 
-    <div class="pt-10">
+    <div class="pt-6">
       <SelectButton
         v-model="model"
         :options="options"
@@ -26,9 +26,11 @@ const options = [
         option-value="code"
       />
 
-      <Grids v-if="model === 'grids'" />
+      <div class="pt-6">
+        <HGrids v-if="model === 'grids'" />
 
-      <Backtest v-else />
+        <HBacktest v-else />
+      </div>
     </div>
   </div>
 </template>
