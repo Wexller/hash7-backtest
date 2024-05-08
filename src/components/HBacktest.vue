@@ -53,14 +53,14 @@ async function getHistoricData(formData: IBacktestForm) {
       break;
     }
 
-    iterationCount.value++;
-
     const data = await fetchHistoricalData({
       endTime,
       interval,
       startTime,
       symbol,
     });
+
+    iterationCount.value++;
 
     if (!data) {
       break;

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Fieldset from 'primevue/fieldset';
 import SelectButton from 'primevue/selectbutton';
 import Toast from 'primevue/toast';
 import HBacktest from 'src/components/HBacktest.vue';
@@ -32,6 +33,15 @@ const options = [
 
         <HGrids v-if="model === 'grids'" />
       </div>
+    </div>
+
+    <div class="pt-20">
+      <Fieldset legend="Что это такое?">
+        Бэктестинг (Backtesting) - это процесс тестирования торговой стратегии
+        на исторических данных. Это позволяет трейдерам и инвесторам оценить и
+        уточнить свои торговые стратегии, прежде чем применять их на реальном
+        рынке.
+      </Fieldset>
     </div>
 
     <Toast />

@@ -12,6 +12,7 @@ import {
   intervalTranslations,
   tickers,
 } from 'src/data/request-data.ts';
+import { formatNumber } from 'src/helpers.ts';
 import { IBacktestForm } from 'src/types/backtest.types.ts';
 import { IntervalType } from 'src/types/request.types.ts';
 import { InputBindsConfig, LazyInputBindsConfig, useForm } from 'vee-validate';
@@ -162,7 +163,7 @@ const onSubmit = handleSubmit((values) => {
       <div>
         Ожидаемое количество записей:
         <span class="font-bold">
-          {{ estimatedRecords }}
+          {{ formatNumber(estimatedRecords) }}
         </span>
       </div>
 

@@ -1,9 +1,11 @@
 /* eslint-disable sort-keys/sort-keys-fix */
 /** @type {import('tailwindcss').Config} */
+import twScrollbar from 'tailwind-scrollbar';
+
 export default {
   darkMode: 'selector',
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  plugins: [],
+  plugins: [twScrollbar()],
   theme: {
     extend: {
       container: {

@@ -1,7 +1,6 @@
 import global from 'src/presets/lara/global.js';
 import button from 'src/presets/lara/components/button';
 import selectbutton from 'src/presets/lara/components/selectbutton';
-import accordion from 'src/presets/lara/components/accordion/index.js';
 import treetable from 'src/presets/lara/components/treetable/index.js';
 import card from 'src/presets/lara/components/card/index.js';
 import dialog from 'src/presets/lara/components/dialog/index.js';
@@ -16,6 +15,8 @@ import inlinemessage from 'src/presets/lara/components/inlinemessage/index.js';
 import progressbar from 'src/presets/lara/components/progressbar/index.js';
 import datatable from 'src/presets/lara/components/datatable/index.js';
 import toast from 'src/presets/lara/components/toast/index.js';
+import message from 'src/presets/lara/components/message/index.js';
+import fieldset from 'src/presets/lara/components/fieldset/index.js';
 
 export default {
   global,
@@ -38,14 +39,15 @@ export default {
   datatable,
 
   //panels
-  accordion,
   card,
+  fieldset,
 
   //overlays
   dialog,
 
   //messages
   inlinemessage,
+  message,
   toast,
 
   //misc
