@@ -21,10 +21,12 @@ import { z } from 'zod';
 
 interface Props {
   isLoading?: boolean;
+  isStopped?: boolean;
 }
 
 interface Emits {
   (event: 'submit', value: IBacktestForm): void;
+  (event: 'stop'): void;
 }
 
 defineProps<Props>();
@@ -174,7 +176,7 @@ const onSubmit = handleSubmit((values) => {
       </div>
     </div>
 
-    <div class="text-center">
+    <div class="flex justify-center gap-4">
       <Button
         type="submit"
         label="Рассчитать"
@@ -182,6 +184,17 @@ const onSubmit = handleSubmit((values) => {
         class="col-span-1"
         :disabled="!meta.valid || !meta.dirty"
         :loading="isLoading"
+      />
+
+      <Button
+        v-if="isLoading"
+        type="button"
+        severity="danger"
+        label="Остановить"
+        icon="pi pi-stop"
+        class="col-span-1"
+        :disabled="isStopped"
+        @click="emit('stop')"
       />
     </div>
   </form>

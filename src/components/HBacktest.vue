@@ -19,6 +19,7 @@ const results = ref<IBacktestResultWithGrid[]>([]);
 const totalIterations = ref(0);
 const iterationCount = ref(0);
 const isFetching = ref(false);
+const isStopped = ref(false);
 
 const ticker = ref<SymbolType>('BTCUSDT');
 const interval = ref<IntervalType>('1d');
@@ -48,10 +49,11 @@ async function getHistoricData(formData: IBacktestForm) {
   iterationCount.value = 0;
 
   isFetching.value = true;
+  isStopped.value = false;
+
   while (startTime < endTime) {
-    if (iterationCount.value >= totalIterations.value) {
-      break;
-    }
+    if (isStopped.value) break;
+    if (iterationCount.value >= totalIterations.value) break;
 
     const data = await fetchHistoricalData({
       endTime,
@@ -83,8 +85,8 @@ const onSubmit = async (value: IBacktestForm) => {
 
   ticker.value = value.symbol;
   interval.value = value.interval;
-  dateFrom.value = value.date[0];
-  dateTo.value = value.date[1];
+  dateFrom.value = new Date(historicalData[0].openTime);
+  dateTo.value = new Date(historicalData[historicalData.length - 1].closeTime);
   totalRecords.value = historicalData.length;
 
   for (const gridKey of value.grids) {
@@ -109,7 +111,12 @@ const onSubmit = async (value: IBacktestForm) => {
 
       <template #content>
         <div class="space-y-5">
-          <HBacktestForm :is-loading="isFetching" @submit="onSubmit" />
+          <HBacktestForm
+            :is-loading="isFetching"
+            :is-stopped="isStopped"
+            @submit="onSubmit"
+            @stop="isStopped = true"
+          />
 
           <div v-if="isFetching" class="space-y-2">
             <p class="text-center text-lg font-medium">

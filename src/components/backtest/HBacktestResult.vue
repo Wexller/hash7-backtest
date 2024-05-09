@@ -53,13 +53,6 @@ defineProps<Props>();
         />
 
         <Column
-          field="apy"
-          header="APY %"
-          header-class="min-w-[120px] text-center"
-          :sortable="true"
-        />
-
-        <Column
           field="realizedPnL"
           header="Реализованный P&L"
           header-class="min-w-[150px] text-center"
@@ -78,8 +71,16 @@ defineProps<Props>();
         <Column
           field="profitWithFees"
           header="Прибыль с учетом комиссий (~40%)"
-          header-class="min-w-[180px] text-center"
+          header-class="min-w-[200px] text-center"
           body-class="text-orange-500 font-semibold"
+          :sortable="true"
+        />
+
+        <Column
+          field="apy"
+          header="APY %"
+          header-class="min-w-[120px] text-center"
+          body-class="font-semibold"
           :sortable="true"
         />
 
