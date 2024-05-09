@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { format } from 'date-fns';
 import Card from 'primevue/card';
-import Column from 'primevue/column';
-import DataTable from 'primevue/datatable';
+import Dialog from 'primevue/dialog';
+import HBacktestResultTable from 'src/components/backtest/HBacktestResultTable.vue';
 import { formatNumber } from 'src/helpers.ts';
 import { IBacktestResultWithGrid } from 'src/types/backtest.types.ts';
 import { IntervalType, SymbolType } from 'src/types/request.types.ts';
+import { ref } from 'vue';
 
 interface Props {
   data: IBacktestResultWithGrid[];
@@ -17,6 +18,14 @@ interface Props {
 }
 
 defineProps<Props>();
+
+const showDialog = ref(false);
+const dialogRef = ref();
+
+const maximize = () => {
+  if (dialogRef.value.maximized) return;
+  dialogRef.value.maximize();
+};
 </script>
 
 <template>
@@ -31,94 +40,21 @@ defineProps<Props>();
     </template>
 
     <template #content>
-      <DataTable :value="data" scrollable show-gridlines>
-        <Column
-          field="gridName"
-          header="Сетка"
-          header-class="min-w-[200px] text-center"
-        />
-
-        <Column
-          field="startBalance"
-          header="Начальный баланс"
-          header-class="min-w-[120px] text-center"
-        />
-
-        <Column
-          field="finalBalance"
-          header="Конечный баланс"
-          header-class="min-w-[120px] text-center"
-          body-class="font-semibold"
-          :sortable="true"
-        />
-
-        <Column
-          field="realizedPnL"
-          header="Реализованный P&L"
-          header-class="min-w-[150px] text-center"
-          body-class="text-green-500 font-semibold"
-          :sortable="true"
-        />
-
-        <Column
-          field="unrealizedPnL"
-          header="Нереализованный P&L"
-          header-class="min-w-[150px] text-center"
-          body-class="text-red-500 font-semibold"
-          :sortable="true"
-        />
-
-        <Column
-          field="profitWithFees"
-          header="Прибыль с учетом комиссий (~40%)"
-          header-class="min-w-[200px] text-center"
-          body-class="text-orange-500 font-semibold"
-          :sortable="true"
-        />
-
-        <Column
-          field="apy"
-          header="APY %"
-          header-class="min-w-[120px] text-center"
-          body-class="font-semibold"
-          :sortable="true"
-        />
-
-        <Column
-          field="totalPositions"
-          header="Денег в позициях"
-          header-class="min-w-[150px] text-center"
-          :sortable="true"
-        />
-
-        <Column
-          field="currentPositions"
-          header="Открытие позиции"
-          header-class="min-w-[150px] text-center"
-          :sortable="true"
-        />
-
-        <Column
-          field="maxPosition"
-          header="Макс. позиций"
-          header-class="min-w-[150px] text-center"
-          :sortable="true"
-        />
-
-        <Column
-          field="buys"
-          header="Всего покупок"
-          header-class="min-w-[150px] text-center"
-          :sortable="true"
-        />
-
-        <Column
-          field="sells"
-          header="Всего продаж"
-          header-class="min-w-[150px] text-center"
-          :sortable="true"
-        />
-      </DataTable>
+      <HBacktestResultTable
+        :data="data"
+        show-maximize
+        @maximize="showDialog = true"
+      />
     </template>
   </Card>
+
+  <Dialog
+    ref="dialogRef"
+    v-model:visible="showDialog"
+    header="Результаты расчетов"
+    maximizable
+    @show="maximize"
+  >
+    <HBacktestResultTable :data="data" />
+  </Dialog>
 </template>
