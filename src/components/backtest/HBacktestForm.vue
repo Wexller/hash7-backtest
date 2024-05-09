@@ -103,9 +103,21 @@ const [grid, gridMeta] = defineField('grids', inputTextConfigBinds);
 const onSubmit = handleSubmit((values) => {
   if (!meta.value.dirty) return;
 
-  emit('submit', values);
+  const { date, ...rest } = values;
+  const [dateFrom, dateTo] = date;
+
+  dateTo.setHours(23);
+  dateTo.setMinutes(59);
+  dateTo.setSeconds(59);
+
+  const toSubmit = {
+    ...rest,
+    date: [dateFrom, dateTo],
+  };
+
+  emit('submit', toSubmit);
   resetForm({
-    values,
+    values: toSubmit,
   });
 });
 </script>

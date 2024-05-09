@@ -52,6 +52,7 @@ const maximize = () => {
     ref="dialogRef"
     v-model:visible="showDialog"
     header="Результаты расчетов"
+    modal
     maximizable
     @show="maximize"
   >
