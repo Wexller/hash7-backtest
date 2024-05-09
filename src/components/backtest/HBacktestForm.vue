@@ -124,7 +124,7 @@ const onSubmit = handleSubmit((values) => {
 
 <template>
   <form class="space-y-5" @submit="onSubmit">
-    <div class="grid gap-4 md:grid-cols-2">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
       <Dropdown
         v-model="ticker"
         v-bind="tickerMeta"
