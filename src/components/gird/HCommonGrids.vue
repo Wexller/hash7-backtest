@@ -8,7 +8,6 @@ import { IGridListItem } from 'src/types/grid.types.ts';
 import { computed, ref } from 'vue';
 
 const showDialog = ref(false);
-const dialogRef = ref();
 const selectedGrid = ref<string | null>(null);
 
 const gridList = gridsData.map<IGridListItem>((grid) => ({
@@ -25,11 +24,6 @@ const showDetail = (key: string) => {
   selectedGrid.value = key;
   showDialog.value = true;
 };
-
-const maximize = () => {
-  if (dialogRef.value.maximized) return;
-  dialogRef.value.maximize();
-};
 </script>
 
 <template>
@@ -43,13 +37,7 @@ const maximize = () => {
     </template>
   </Card>
 
-  <Dialog
-    ref="dialogRef"
-    v-model:visible="showDialog"
-    header="Подробнее"
-    modal
-    maximizable
-  >
+  <Dialog v-model:visible="showDialog" header="Подробнее" modal maximizable>
     <HGridTable :items="gridItems" />
   </Dialog>
 </template>
