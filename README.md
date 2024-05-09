@@ -1,9 +1,34 @@
-# Vue 3 + TypeScript + Vite
+# Hash7 Backtest
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Этот проект представляет собой инструмент для бэктестирования торговых стратегий на основе сеток. Он написан на TypeScript и Vue и использует Binance API для получения исторических данных.
 
-## Recommended Setup
+## Основные функции
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+1. **Выбор актива**: Вы можете выбрать актив (например, BTC/USDT), который вы хотите использовать для бэктеста. Это актив, на котором будет проводиться тестирование выбранной стратегии.
 
-- Use [vue-tsc](https://github.com/vuejs/language-tools/tree/master/packages/tsc) for performing the same type checking from the command line, or for generating d.ts files for SFCs.
+2. **Выбор шага**: Вы можете выбрать временной интервал (например, 15 минут), который будет использоваться для бэктеста. Это шаг, с которым будут собираться исторические данные для тестирования.
+
+3. **Выбор сетки**: Вы можете выбрать сетку, которую вы хотите использовать для бэктеста. Сетка - это набор уровней, на которых ваша стратегия будет открывать и закрывать сделки.
+
+4. **Выбор диапазона дат**: Вы можете выбрать диапазон дат для бэктеста. Это период времени, за который будут собираться исторические данные для тестирования.
+
+После заполнения всех полей, вы можете нажать кнопку "Рассчитать" для
+запуска бэктеста. Во время бэктеста вы можете нажать кнопку "Остановить"
+и вам выведутся результаты уже полученных данных.
+
+## Установка и запуск
+
+Для установки и запуска проекта вам потребуется Node.js и npm или yarn. Следуйте этим шагам:
+
+1. Клонируйте репозиторий: `git clone <url репозитория>`
+2. Перейдите в директорию проекта: `cd <название проекта>`
+3. Установите зависимости: `npm install` или `yarn install`
+4. Запустите проект: `npm run dev` или `yarn dev`
+
+## Контакты
+
+Если у вас есть вопросы или предложения, пожалуйста, свяжитесь со мной по электронной почте: [maxim.davydov.94@gmail.com](mailto:maxim.davydov.94@gmail.com)
+
+## Лицензия
+
+Этот проект лицензирован под лицензией MIT. Подробности см. в файле `LICENSE`.
