@@ -130,8 +130,6 @@ const onSubmit = async (value: IBacktestForm) => {
       </template>
     </Card>
 
-    <HBacktesetParamsDescription />
-
     <HBacktestResult
       v-if="results.length > 0"
       :data="results"
@@ -141,5 +139,7 @@ const onSubmit = async (value: IBacktestForm) => {
       :date-to="dateTo"
       :total-records="totalRecords"
     />
+
+    <HBacktesetParamsDescription />
   </div>
 </template>
