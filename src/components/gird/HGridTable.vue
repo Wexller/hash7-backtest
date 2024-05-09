@@ -1,46 +1,46 @@
 <script setup lang="ts">
 import Column from 'primevue/column';
-import { TreeNode } from 'primevue/treenode';
-import TreeTable from 'primevue/treetable';
+import DataTable from 'primevue/datatable';
+import { IGridItem } from 'src/types/grid.types.ts';
 
 interface Props {
-  nodes: TreeNode[];
+  items: IGridItem[];
 }
 
 defineProps<Props>();
 </script>
 
 <template>
-  <TreeTable :value="nodes" size="small">
-    <Column
-      field="name"
-      header="Название"
-      header-class="text-center"
-      body-class="font-semibold"
-      expander
-    />
-
-    <Column field="id" header="#" header-class="w-5" body-class="text-center" />
+  <DataTable :value="items" size="small" scrollable show-gridlines>
+    <Column header="#" header-class="w-10 text-center" body-class="text-center">
+      <template #body="slotProps">
+        <span>{{ slotProps.index + 1 }}</span>
+      </template>
+    </Column>
 
     <Column
       field="buy"
       header="Покупка ↓"
-      header-class="w-[18%] text-center"
+      header-class=" text-center"
       body-class="text-center font-medium text-red-500"
-    />
+    >
+      <template #body="slotProps">
+        <span>{{ slotProps.data.buy > 0 ? slotProps.data.buy : '' }}</span>
+      </template>
+    </Column>
 
     <Column
       field="sell"
       header="Продажа ↑"
-      header-class="w-[18%] text-center"
+      header-class="text-center"
       body-class="text-center font-medium text-green-500"
     />
 
     <Column
       field="multiplier"
       header="Множитель (USDT)"
-      header-class="w-[18%] text-center"
+      header-class="text-center"
       body-class="text-center"
     />
-  </TreeTable>
+  </DataTable>
 </template>

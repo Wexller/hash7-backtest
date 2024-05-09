@@ -9,3 +9,8 @@ export interface IGrid {
   name: string;
   items: IGridItem[];
 }
+
+export interface IGridListItem {
+  key: string;
+  name: string;
+}

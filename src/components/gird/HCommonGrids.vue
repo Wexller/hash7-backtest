@@ -1,28 +1,35 @@
 <script setup lang="ts">
 import Card from 'primevue/card';
-import { TreeNode } from 'primevue/treenode';
+import Dialog from 'primevue/dialog';
+import HGridList from 'src/components/gird/HGridList.vue';
 import HGridTable from 'src/components/gird/HGridTable.vue';
-import gridsData from 'src/data/grids-data';
+import gridsData, { gridMap } from 'src/data/grids-data';
+import { IGridListItem } from 'src/types/grid.types.ts';
+import { computed, ref } from 'vue';
 
-const nodes: TreeNode[] = gridsData.map((grid, parentIdx) => {
-  return {
-    children: grid.items.map((item, idx) => {
-      return {
-        data: {
-          buy: item.buy || '',
-          id: idx + 1,
-          multiplier: item.multiplier,
-          sell: item.sell,
-        },
-        key: `${parentIdx}-${idx}`,
-      };
-    }),
-    data: {
-      name: grid.name,
-    },
-    key: `${parentIdx}`,
-  };
+const showDialog = ref(false);
+const dialogRef = ref();
+const selectedGrid = ref<string | null>(null);
+
+const gridList = gridsData.map<IGridListItem>((grid) => ({
+  key: grid.key,
+  name: grid.name,
+}));
+
+const gridItems = computed(() => {
+  if (!selectedGrid.value || !gridMap[selectedGrid.value]?.items) return [];
+  return gridMap[selectedGrid.value].items;
 });
+
+const showDetail = (key: string) => {
+  selectedGrid.value = key;
+  showDialog.value = true;
+};
+
+const maximize = () => {
+  if (dialogRef.value.maximized) return;
+  dialogRef.value.maximize();
+};
 </script>
 
 <template>
@@ -32,7 +39,17 @@ const nodes: TreeNode[] = gridsData.map((grid, parentIdx) => {
     </template>
 
     <template #content>
-      <HGridTable :nodes="nodes" />
+      <HGridList :data="gridList" @show-detail="showDetail" />
     </template>
   </Card>
+
+  <Dialog
+    ref="dialogRef"
+    v-model:visible="showDialog"
+    header="Подробнее"
+    modal
+    maximizable
+  >
+    <HGridTable :items="gridItems" />
+  </Dialog>
 </template>
