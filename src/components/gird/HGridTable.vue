@@ -11,7 +11,13 @@ defineProps<Props>();
 </script>
 
 <template>
-  <DataTable :value="items" size="small" scrollable show-gridlines>
+  <DataTable
+    :value="items"
+    size="small"
+    scrollable
+    show-gridlines
+    class="mx-auto max-w-[600px]"
+  >
     <Column header="#" header-class="w-10 text-center" body-class="text-center">
       <template #body="slotProps">
         <span>{{ slotProps.index + 1 }}</span>

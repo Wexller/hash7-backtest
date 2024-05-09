@@ -24,12 +24,20 @@ defineEmits<Emits>();
         class="transition-colors hover:bg-surface-50 dark:hover:bg-surface-700"
       >
         <div
-          class="flex justify-between gap-2 border-b border-surface-200 p-4 max-sm:flex-col sm:items-center"
+          class="flex items-center justify-between gap-3 border-b border-surface-200 p-4"
         >
           <h3 class="font-medium md:text-lg">{{ item.name }}</h3>
 
           <Button
+            class="shrink-0 sm:hidden"
+            icon="pi pi-list"
+            size="small"
+            @click="$emit('showDetail', item.key)"
+          />
+
+          <Button
             label="Подробнее"
+            class="shrink-0 max-sm:hidden"
             icon="pi pi-list"
             size="small"
             @click="$emit('showDetail', item.key)"
