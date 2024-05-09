@@ -4,7 +4,8 @@
 
 ## Демо
 
-Вы можете посмотреть демо проекта по следующей ссылке: <a href="https://wexller.github.io/hash7-backtest/" target="_blank">https://wexller.github.io/hash7-backtest/</a>
+Вы можете посмотреть демо проекта по следующей ссылке: [https://wexller.github.io/hash7-backtest/](https://wexller.github.io/hash7-backtest/)
+
 ## Основные функции
 
 1. **Выбор актива**: Вы можете выбрать актив (например, BTC/USDT), который вы хотите использовать для бэктеста. Это актив, на котором будет проводиться тестирование выбранной стратегии.
