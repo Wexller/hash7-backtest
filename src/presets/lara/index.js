@@ -17,6 +17,8 @@ import datatable from 'src/presets/lara/components/datatable/index.js';
 import toast from 'src/presets/lara/components/toast/index.js';
 import message from 'src/presets/lara/components/message/index.js';
 import fieldset from 'src/presets/lara/components/fieldset/index.js';
+import dataview from 'src/presets/lara/components/dataview/index.js';
+import panel from 'src/presets/lara/components/panel/index.js';
 
 export default {
   global,
@@ -35,12 +37,14 @@ export default {
   selectbutton,
 
   //data
-  treetable,
   datatable,
+  dataview,
+  treetable,
 
   //panels
   card,
   fieldset,
+  panel,
 
   //overlays
   dialog,

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Card from 'primevue/card';
 import ProgressBar from 'primevue/progressbar';
+import HBacktesetParamsDescription from 'src/components/backtest/HBacktesetParamsDescription.vue';
 import HBacktestForm from 'src/components/backtest/HBacktestForm.vue';
 import HBacktestResult from 'src/components/backtest/HBacktestResult.vue';
 import { INTERVAL_TO_MILLISECONDS, LIMIT } from 'src/consts.ts';
@@ -106,7 +107,7 @@ const onSubmit = async (value: IBacktestForm) => {
   <div class="mx-auto space-y-10">
     <Card>
       <template #title>
-        <h2 class="text-center text-2xl font-medium">Бэктест</h2>
+        <h2 class="text-center text-2xl font-medium">Параметры для бэктеста</h2>
       </template>
 
       <template #content>
@@ -128,6 +129,8 @@ const onSubmit = async (value: IBacktestForm) => {
         </div>
       </template>
     </Card>
+
+    <HBacktesetParamsDescription />
 
     <HBacktestResult
       v-if="results.length > 0"

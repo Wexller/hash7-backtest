@@ -134,6 +134,7 @@ const onSubmit = handleSubmit((values) => {
         option-value="code"
         placeholder="Выберите актив"
         :virtual-scroller-options="{ itemSize: 38 }"
+        filter-placeholder="Введите название актива"
         filter
       />
 
