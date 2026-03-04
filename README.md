@@ -4,7 +4,7 @@ A dedicated tool for **Hash7 users** to compare grid trading strategies against 
 
 Built with Vue 3 + TypeScript, it fetches real historical price data from the Binance API and simulates the Hash7 grid bot to evaluate strategy performance over any selected time range.
 
-**Live Demo:** [https://wexller.github.io/hash7-backtest/](https://wexller.github.io/hash7-backtest/)
+**Live Demo:** <a href="https://wexller.github.io/hash7-backtest/" target="_blank">https://wexller.github.io/hash7-backtest/</a>
 
 ---
 
