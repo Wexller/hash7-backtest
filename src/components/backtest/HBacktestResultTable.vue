@@ -22,7 +22,7 @@ defineEmits<Emits>();
     <template v-if="showMaximize" #header>
       <div class="flex justify-end">
         <Button
-          label="Развернуть"
+          :label="$t('results.expand')"
           icon-pos="right"
           icon="pi pi-window-maximize"
           @click="$emit('maximize')"
@@ -32,19 +32,19 @@ defineEmits<Emits>();
 
     <Column
       field="gridName"
-      header="Сетка"
+      :header="$t('results.gridName')"
       header-class="min-w-[200px] text-center"
     />
 
     <Column
       field="startBalance"
-      header="Начальный баланс"
+      :header="$t('results.startBalance')"
       header-class="min-w-[120px] text-center"
     />
 
     <Column
       field="finalBalance"
-      header="Конечный баланс"
+      :header="$t('results.finalBalance')"
       header-class="min-w-[120px] text-center"
       body-class="font-semibold"
       :sortable="true"
@@ -52,7 +52,7 @@ defineEmits<Emits>();
 
     <Column
       field="realizedPnL"
-      header="Реализованный P&L"
+      :header="$t('results.realizedPnL')"
       header-class="min-w-[150px] text-center"
       body-class="text-green-500 font-semibold"
       :sortable="true"
@@ -60,7 +60,7 @@ defineEmits<Emits>();
 
     <Column
       field="unrealizedPnL"
-      header="Нереализованный P&L"
+      :header="$t('results.unrealizedPnL')"
       header-class="min-w-[150px] text-center"
       body-class="text-red-500 font-semibold"
       :sortable="true"
@@ -68,7 +68,7 @@ defineEmits<Emits>();
 
     <Column
       field="profitWithFees"
-      header="Прибыль с учетом комиссий (~40%)"
+      :header="$t('results.profitWithFees')"
       header-class="min-w-[200px] text-center"
       body-class="text-orange-500 font-semibold"
       :sortable="true"
@@ -76,7 +76,7 @@ defineEmits<Emits>();
 
     <Column
       field="apy"
-      header="APY %"
+      :header="$t('results.apy')"
       header-class="min-w-[120px] text-center"
       body-class="font-semibold"
       :sortable="true"
@@ -84,35 +84,35 @@ defineEmits<Emits>();
 
     <Column
       field="totalPositions"
-      header="Денег в позициях"
+      :header="$t('results.totalPositions')"
       header-class="min-w-[150px] text-center"
       :sortable="true"
     />
 
     <Column
       field="currentPositions"
-      header="Открытие позиции"
+      :header="$t('results.currentPositions')"
       header-class="min-w-[150px] text-center"
       :sortable="true"
     />
 
     <Column
       field="maxPosition"
-      header="Макс. позиций"
+      :header="$t('results.maxPosition')"
       header-class="min-w-[150px] text-center"
       :sortable="true"
     />
 
     <Column
       field="buys"
-      header="Всего покупок"
+      :header="$t('results.buys')"
       header-class="min-w-[150px] text-center"
       :sortable="true"
     />
 
     <Column
       field="sells"
-      header="Всего продаж"
+      :header="$t('results.sells')"
       header-class="min-w-[150px] text-center"
       :sortable="true"
     />

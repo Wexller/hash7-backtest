@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useDark, useToggle } from '@vueuse/core';
 import Button from 'primevue/button';
+import HLanguageToggle from 'src/components/HLanguageToggle.vue';
 import HLogo from 'src/components/HLogo.vue';
 
 const isDark = useDark();
@@ -15,11 +16,15 @@ const toggleDark = useToggle(isDark);
       <h1 class="text-2xl">Backtest</h1>
     </div>
 
-    <Button
-      :icon="isDark ? 'pi pi-moon' : 'pi pi-sun'"
-      text
-      size="small"
-      @click="toggleDark()"
-    />
+    <div class="flex items-center gap-2">
+      <HLanguageToggle />
+
+      <Button
+        :icon="isDark ? 'pi pi-moon' : 'pi pi-sun'"
+        text
+        size="small"
+        @click="toggleDark()"
+      />
+    </div>
   </div>
 </template>

@@ -18,7 +18,11 @@ defineProps<Props>();
     show-gridlines
     class="mx-auto max-w-[600px]"
   >
-    <Column header="#" header-class="w-10 text-center" body-class="text-center">
+    <Column
+      :header="$t('grids.table.number')"
+      header-class="w-10 text-center"
+      body-class="text-center"
+    >
       <template #body="slotProps">
         <span>{{ slotProps.index + 1 }}</span>
       </template>
@@ -26,7 +30,7 @@ defineProps<Props>();
 
     <Column
       field="buy"
-      header="Покупка ↓"
+      :header="$t('grids.table.buy')"
       header-class=" text-center"
       body-class="text-center font-medium text-red-500"
     >
@@ -37,14 +41,14 @@ defineProps<Props>();
 
     <Column
       field="sell"
-      header="Продажа ↑"
+      :header="$t('grids.table.sell')"
       header-class="text-center"
       body-class="text-center font-medium text-green-500"
     />
 
     <Column
       field="multiplier"
-      header="Множитель (USDT)"
+      :header="$t('grids.table.multiplier')"
       header-class="text-center"
       body-class="text-center"
     />

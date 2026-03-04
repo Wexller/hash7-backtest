@@ -14,16 +14,18 @@ const userGrids: IGrid[] = [];
 <template>
   <Card>
     <template #title>
-      <h2 class="text-center text-2xl font-medium">Ваши сетки</h2>
+      <h2 class="text-center text-2xl font-medium">
+        {{ $t('grids.user.title') }}
+      </h2>
     </template>
 
     <template #content>
       <div v-if="userGrids.length === 0">
-        <p class="text-center text-xl">У вас пока нет сеток</p>
+        <p class="text-center text-xl">{{ $t('grids.user.empty') }}</p>
 
         <div class="mt-4 flex justify-center">
           <Button
-            label="Добавить"
+            :label="$t('grids.user.add')"
             icon="pi pi-plus"
             @click="showDialog = true"
           />
@@ -34,7 +36,7 @@ const userGrids: IGrid[] = [];
 
   <Dialog
     v-model:visible="showDialog"
-    header="Добавить сетку"
+    :header="$t('grids.user.addTitle')"
     :style="{ width: '600px' }"
     maximizable
     modal

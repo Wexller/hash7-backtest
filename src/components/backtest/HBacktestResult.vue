@@ -2,22 +2,25 @@
 import { format } from 'date-fns';
 import Card from 'primevue/card';
 import Dialog from 'primevue/dialog';
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import HBacktestResultTable from 'src/components/backtest/HBacktestResultTable.vue';
 import { formatNumber } from 'src/helpers.ts';
 import { IBacktestResultWithGrid } from 'src/types/backtest.types.ts';
 import { IntervalType, SymbolType } from 'src/types/request.types.ts';
-import { ref } from 'vue';
 
 interface Props {
   data: IBacktestResultWithGrid[];
-  ticker: SymbolType;
-  interval: IntervalType;
   dateFrom: Date;
   dateTo: Date;
+  interval: IntervalType;
+  ticker: SymbolType;
   totalRecords: number;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
+
+const { t } = useI18n();
 
 const showDialog = ref(false);
 const dialogRef = ref();
@@ -32,10 +35,14 @@ const maximize = () => {
   <Card>
     <template #title>
       <h2 class="text-center text-xl font-medium">
-        Результаты расчетов {{ ticker }} на основе
-        {{ formatNumber(totalRecords) }} записей за период с
-        {{ format(dateFrom, 'dd.MM.yyyy') }} по
-        {{ format(dateTo, 'dd.MM.yyyy') }}
+        {{
+          t('backtest.result.title', {
+            dateFrom: format(props.dateFrom, 'dd.MM.yyyy'),
+            dateTo: format(props.dateTo, 'dd.MM.yyyy'),
+            records: formatNumber(props.totalRecords),
+            ticker: props.ticker,
+          })
+        }}
       </h2>
     </template>
 
@@ -51,7 +58,7 @@ const maximize = () => {
   <Dialog
     ref="dialogRef"
     v-model:visible="showDialog"
-    header="Результаты расчетов"
+    :header="$t('backtest.result.dialogTitle')"
     modal
     maximizable
     @show="maximize"

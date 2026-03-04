@@ -5,19 +5,16 @@ import Calendar from 'primevue/calendar';
 import Dropdown from 'primevue/dropdown';
 import InlineMessage from 'primevue/inlinemessage';
 import MultiSelect from 'primevue/multiselect';
+import { InputBindsConfig, LazyInputBindsConfig, useForm } from 'vee-validate';
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { z } from 'zod';
 import { INTERVAL_TO_MILLISECONDS } from 'src/consts.ts';
 import grids from 'src/data/grids-data';
-import {
-  intervals,
-  intervalTranslations,
-  tickers,
-} from 'src/data/request-data.ts';
+import { intervals, tickers } from 'src/data/request-data.ts';
 import { formatNumber } from 'src/helpers.ts';
 import { IBacktestForm } from 'src/types/backtest.types.ts';
 import { IntervalType } from 'src/types/request.types.ts';
-import { InputBindsConfig, LazyInputBindsConfig, useForm } from 'vee-validate';
-import { computed } from 'vue';
-import { z } from 'zod';
 
 interface Props {
   isLoading?: boolean;
@@ -32,20 +29,28 @@ interface Emits {
 defineProps<Props>();
 const emit = defineEmits<Emits>();
 
+const { t } = useI18n();
+
 const symbolList = tickers.map((ticker) => ({
   code: `${ticker}USDT`,
   name: `${ticker}/USDT`,
 }));
 
-const intervalList = intervals.map((interval) => ({
-  code: interval,
-  name: intervalTranslations[interval],
-}));
+const intervalList = computed(() =>
+  intervals.map((interval) => ({
+    code: interval,
+    // Cast to string to allow dynamic key lookup with vue-i18n typed schema
+    name: t(`intervals.${interval}` as string),
+  })),
+);
 
-const gridList = grids.map((grid) => ({
-  code: grid.key,
-  name: grid.name,
-}));
+const gridList = computed(() =>
+  grids.map((grid) => ({
+    code: grid.key,
+    // Cast to string to allow dynamic key lookup with vue-i18n typed schema
+    name: t(`strategyGrids.${grid.key}` as string),
+  })),
+);
 
 const scheme = toTypedSchema(
   z.object({
@@ -132,9 +137,9 @@ const onSubmit = handleSubmit((values) => {
         :disabled="isLoading"
         option-label="name"
         option-value="code"
-        placeholder="Выберите актив"
+        :placeholder="$t('backtest.form.asset.placeholder')"
         :virtual-scroller-options="{ itemSize: 38 }"
-        filter-placeholder="Введите название актива"
+        :filter-placeholder="$t('backtest.form.asset.filterPlaceholder')"
         filter
       />
 
@@ -145,7 +150,7 @@ const onSubmit = handleSubmit((values) => {
         :disabled="isLoading"
         option-label="name"
         option-value="code"
-        placeholder="Выберите шаг"
+        :placeholder="$t('backtest.form.interval.placeholder')"
       />
 
       <MultiSelect
@@ -155,9 +160,9 @@ const onSubmit = handleSubmit((values) => {
         :disabled="isLoading"
         option-value="code"
         option-label="name"
-        placeholder="Выберите сетки"
+        :placeholder="$t('backtest.form.grids.placeholder')"
         :max-selected-labels="3"
-        selected-items-label="{0} выбрано"
+        :selected-items-label="$t('backtest.form.grids.selectedLabel')"
       />
 
       <Calendar
@@ -169,14 +174,14 @@ const onSubmit = handleSubmit((values) => {
         :manual-input="false"
         :max-date="new Date()"
         hide-on-range-selection
-        placeholder="Выберите диапазон дат"
+        :placeholder="$t('backtest.form.dateRange.placeholder')"
         show-button-bar
       />
     </div>
 
     <div v-if="estimatedRecords > 0" class="space-y-4 text-center">
       <div>
-        Ожидаемое количество записей:
+        {{ $t('backtest.form.estimatedRecords') }}
         <span class="font-bold">
           {{ formatNumber(estimatedRecords) }}
         </span>
@@ -184,7 +189,7 @@ const onSubmit = handleSubmit((values) => {
 
       <div>
         <InlineMessage severity="warn">
-          Чем больше записей, тем дольше будет происходить расчет
+          {{ $t('backtest.form.warningRecords') }}
         </InlineMessage>
       </div>
     </div>
@@ -192,7 +197,7 @@ const onSubmit = handleSubmit((values) => {
     <div class="flex justify-center gap-4">
       <Button
         type="submit"
-        label="Рассчитать"
+        :label="$t('backtest.form.calculate')"
         icon="pi pi-calculator"
         class="col-span-1"
         :disabled="!meta.valid || !meta.dirty"
@@ -203,7 +208,7 @@ const onSubmit = handleSubmit((values) => {
         v-if="isLoading"
         type="button"
         severity="danger"
-        label="Остановить"
+        :label="$t('backtest.form.stop')"
         icon="pi pi-stop"
         class="col-span-1"
         :disabled="isStopped"

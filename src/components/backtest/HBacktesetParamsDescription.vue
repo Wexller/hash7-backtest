@@ -3,40 +3,30 @@ import Panel from 'primevue/panel';
 </script>
 
 <template>
-  <Panel header="Описание параметров" toggleable collapsed>
+  <Panel :header="$t('backtest.params.title')" toggleable collapsed>
     <div class="space-y-3">
-      <p>
-        Для проведения бэктеста вам необходимо заполнить следующие параметры:
-      </p>
+      <p>{{ $t('backtest.params.description') }}</p>
 
       <ol class="list-decimal space-y-2 pl-5">
         <li>
-          <b>Актив</b> - Выберите актив (например, BTC/USDT), который вы хотите
-          использовать для бэктеста. Это актив, на котором будет проводиться
-          тестирование выбранной стратегии.
+          <b>{{ $t('backtest.params.asset') }}</b>
+          - {{ $t('backtest.params.assetDescription') }}
         </li>
         <li>
-          <b>Шаг</b> - Выберите временной интервал (например, 15 минут), который
-          будет использоваться для бэктеста. Это шаг, с которым будут собираться
-          исторические данные для тестирования.
+          <b>{{ $t('backtest.params.interval') }}</b>
+          - {{ $t('backtest.params.intervalDescription') }}
         </li>
         <li>
-          <b>Сетка</b> - Выберите сетку, которую вы хотите использовать для
-          бэктеста. Сетка - это набор уровней, на которых выбранная стратегия
-          будет открывать и закрывать сделки.
+          <b>{{ $t('backtest.params.grid') }}</b>
+          - {{ $t('backtest.params.gridDescription') }}
         </li>
         <li>
-          <b>Диапазон дат</b> - Выберите диапазон дат для бэктеста. Это период
-          времени, за который будут собираться исторические данные для
-          тестирования.
+          <b>{{ $t('backtest.params.dateRange') }}</b>
+          - {{ $t('backtest.params.dateRangeDescription') }}
         </li>
       </ol>
 
-      <p>
-        После заполнения всех полей, вы можете нажать кнопку "Рассчитать" для
-        запуска бэктеста. Во время бэктеста вы можете нажать кнопку "Остановить"
-        и вам выведутся результаты уже полученных данных.
-      </p>
+      <p>{{ $t('backtest.params.calculate') }}</p>
     </div>
   </Panel>
 </template>

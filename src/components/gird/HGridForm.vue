@@ -9,7 +9,7 @@ const gridName = ref('');
 
 <template>
   <form>
-    <HInputWrapper id="grid-name" label="Название сетки">
+    <HInputWrapper id="grid-name" :label="$t('grids.user.gridName')">
       <InputText id="grid-name" v-model="gridName" class="w-full" />
     </HInputWrapper>
 

@@ -36,7 +36,7 @@ defineEmits<Emits>();
           />
 
           <Button
-            label="Подробнее"
+            :label="$t('grids.common.detail')"
             class="shrink-0 max-sm:hidden"
             icon="pi pi-list"
             size="small"

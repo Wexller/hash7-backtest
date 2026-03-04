@@ -107,7 +107,9 @@ const onSubmit = async (value: IBacktestForm) => {
   <div class="mx-auto space-y-10">
     <Card>
       <template #title>
-        <h2 class="text-center text-2xl font-medium">Параметры для бэктеста</h2>
+        <h2 class="text-center text-2xl font-medium">
+          {{ $t('backtest.title') }}
+        </h2>
       </template>
 
       <template #content>
@@ -121,7 +123,12 @@ const onSubmit = async (value: IBacktestForm) => {
 
           <div v-if="isFetching" class="space-y-2">
             <p class="text-center text-lg font-medium">
-              Загрузка данных: {{ iterationCount }} / {{ totalIterations }}
+              {{
+                $t('backtest.loading.progress', {
+                  current: iterationCount,
+                  total: totalIterations,
+                })
+              }}
             </p>
 
             <ProgressBar :value="recordCountPercentage" />

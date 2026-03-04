@@ -2,17 +2,19 @@
 import Fieldset from 'primevue/fieldset';
 import SelectButton from 'primevue/selectbutton';
 import Toast from 'primevue/toast';
+import { computed, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import HBacktest from 'src/components/HBacktest.vue';
 import HGrids from 'src/components/HGrids.vue';
 import HHeader from 'src/components/HHeader.vue';
-import { ref } from 'vue';
 
+const { t } = useI18n();
 const model = ref<string>('backtest');
 
-const options = [
-  { code: 'backtest', name: 'Бэктест' },
-  { code: 'grids', name: 'Сетки' },
-];
+const options = computed(() => [
+  { code: 'backtest', name: t('app.nav.backtest') },
+  { code: 'grids', name: t('app.nav.grids') },
+]);
 </script>
 
 <template>
@@ -36,11 +38,8 @@ const options = [
     </div>
 
     <div class="pt-20">
-      <Fieldset legend="Что это такое?">
-        Бэктестинг (Backtesting) - это процесс тестирования торговой стратегии
-        на исторических данных. Это позволяет трейдерам и инвесторам оценить и
-        уточнить свои торговые стратегии, прежде чем применять их на реальном
-        рынке.
+      <Fieldset :legend="$t('app.descriptionTitle')">
+        {{ $t('app.description') }}
       </Fieldset>
     </div>
 
