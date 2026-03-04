@@ -2,11 +2,11 @@
 import Fieldset from 'primevue/fieldset';
 import SelectButton from 'primevue/selectbutton';
 import Toast from 'primevue/toast';
-import { computed, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
 import HBacktest from 'src/components/HBacktest.vue';
 import HGrids from 'src/components/HGrids.vue';
 import HHeader from 'src/components/HHeader.vue';
+import { computed, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 const model = ref<string>('backtest');

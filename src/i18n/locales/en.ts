@@ -41,7 +41,8 @@ const en = {
       dateRange: 'Date Range',
       dateRangeDescription:
         'Select a date range for backtesting. This is the time period for which historical data will be collected for testing.',
-      description: 'To run a backtest, please fill in the following parameters:',
+      description:
+        'To run a backtest, please fill in the following parameters:',
       grid: 'Grid',
       gridDescription:
         'Select the grid you want to use for backtesting. A grid is a set of levels at which the selected strategy will open and close trades.',

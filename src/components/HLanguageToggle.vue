@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Dropdown from 'primevue/dropdown';
-import { useI18n } from 'vue-i18n';
 import { type SupportedLocale } from 'src/i18n/index.ts';
+import { useI18n } from 'vue-i18n';
 
 interface LanguageOption {
   code: SupportedLocale;
@@ -13,6 +13,7 @@ const { locale } = useI18n();
 
 const languages: LanguageOption[] = [
   { code: 'en', flag: '🇺🇸', label: 'EN' },
+  { code: 'ru', flag: '🇷🇺', label: 'RU' },
 ];
 
 function onLocaleChange(value: SupportedLocale): void {

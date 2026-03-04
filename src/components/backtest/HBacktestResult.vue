@@ -2,12 +2,12 @@
 import { format } from 'date-fns';
 import Card from 'primevue/card';
 import Dialog from 'primevue/dialog';
-import { ref } from 'vue';
-import { useI18n } from 'vue-i18n';
 import HBacktestResultTable from 'src/components/backtest/HBacktestResultTable.vue';
 import { formatNumber } from 'src/helpers.ts';
 import { IBacktestResultWithGrid } from 'src/types/backtest.types.ts';
 import { IntervalType, SymbolType } from 'src/types/request.types.ts';
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 interface Props {
   data: IBacktestResultWithGrid[];

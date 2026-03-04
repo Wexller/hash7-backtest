@@ -3,9 +3,9 @@ import 'primeicons/primeicons.css';
 
 import PrimeVue from 'primevue/config';
 import toastService from 'primevue/toastservice';
-import { createApp } from 'vue';
 import i18n from 'src/i18n/index.ts';
 import Lara from 'src/presets/lara';
+import { createApp } from 'vue';
 
 import App from './App.vue';
 

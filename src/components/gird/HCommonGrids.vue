@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import Card from 'primevue/card';
 import Dialog from 'primevue/dialog';
-import { computed, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
 import HGridList from 'src/components/gird/HGridList.vue';
 import HGridTable from 'src/components/gird/HGridTable.vue';
 import gridsData, { gridMap } from 'src/data/grids-data';
 import { IGridListItem } from 'src/types/grid.types.ts';
+import { computed, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 

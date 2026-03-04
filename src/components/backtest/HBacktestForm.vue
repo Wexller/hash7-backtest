@@ -5,16 +5,16 @@ import Calendar from 'primevue/calendar';
 import Dropdown from 'primevue/dropdown';
 import InlineMessage from 'primevue/inlinemessage';
 import MultiSelect from 'primevue/multiselect';
-import { InputBindsConfig, LazyInputBindsConfig, useForm } from 'vee-validate';
-import { computed } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { z } from 'zod';
 import { INTERVAL_TO_MILLISECONDS } from 'src/consts.ts';
 import grids from 'src/data/grids-data';
 import { intervals, tickers } from 'src/data/request-data.ts';
 import { formatNumber } from 'src/helpers.ts';
 import { IBacktestForm } from 'src/types/backtest.types.ts';
 import { IntervalType } from 'src/types/request.types.ts';
+import { InputBindsConfig, LazyInputBindsConfig, useForm } from 'vee-validate';
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { z } from 'zod';
 
 interface Props {
   isLoading?: boolean;
