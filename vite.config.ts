@@ -10,8 +10,6 @@ export default defineConfig(({ mode }) => {
   const env = { ...process.env, ...loadEnv(mode, process.cwd()) };
   const basePrefix = env.VITE_BASE_PREFIX;
 
-  console.log(basePrefix);
-
   const config = {
     base: '/src',
     plugins: [vue()],
