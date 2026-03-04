@@ -27,9 +27,9 @@ jobs:
 
       - run: yarn install --frozen-lockfile
 
+      - run: echo "VITE_BASE_PREFIX=/${GITHUB_REPOSITORY#*/}/" >> $GITHUB_ENV
+
       - run: yarn build
-        env:
-          VITE_BASE_PREFIX: /${{ github.event.repository.name }}/
 
       - uses: actions/upload-pages-artifact@v3
         with:
