@@ -5,7 +5,7 @@ const en = {
     descriptionTitle: 'What is this?',
     nav: {
       backtest: 'Backtest',
-      grids: 'Grids',
+      grids: 'Strategies',
     },
   },
   backtest: {
@@ -20,7 +20,7 @@ const en = {
       },
       estimatedRecords: 'Estimated number of records:',
       grids: {
-        placeholder: 'Select grids',
+        placeholder: 'Select strategies',
         selectedLabel: '{0} selected',
       },
       interval: {
@@ -43,9 +43,9 @@ const en = {
         'Select a date range for backtesting. This is the time period for which historical data will be collected for testing.',
       description:
         'To run a backtest, please fill in the following parameters:',
-      grid: 'Grid',
+      grid: 'Strategy',
       gridDescription:
-        'Select the grid you want to use for backtesting. A grid is a set of levels at which the selected strategy will open and close trades.',
+        'Select the strategy you want to use for backtesting. A strategy is a set of levels at which the selected strategy will open and close trades.',
       interval: 'Interval',
       intervalDescription:
         'Select the time interval (e.g., 15 minutes) to use for backtesting. This is the step at which historical data will be collected for testing.',
@@ -62,7 +62,7 @@ const en = {
     common: {
       detail: 'Details',
       dialogTitle: 'Details',
-      title: 'Common grids',
+      title: 'Common strategies',
     },
     table: {
       buy: 'Buy ↓',
@@ -72,10 +72,10 @@ const en = {
     },
     user: {
       add: 'Add',
-      addTitle: 'Add grid',
-      empty: 'You have no grids yet',
-      gridName: 'Grid name',
-      title: 'Your grids',
+      addTitle: 'Add strategy',
+      empty: 'You have no strategies yet',
+      gridName: 'Strategy name',
+      title: 'Your strategies',
     },
   },
   intervals: {
@@ -102,7 +102,7 @@ const en = {
     currentPositions: 'Open positions',
     expand: 'Expand',
     finalBalance: 'Final balance',
-    gridName: 'Grid',
+    gridName: 'Strategy',
     maxPosition: 'Max positions',
     profitWithFees: 'Profit after fees (~40%)',
     realizedPnL: 'Realized P&L',
